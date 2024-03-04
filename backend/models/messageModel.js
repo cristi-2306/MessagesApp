@@ -1,16 +1,26 @@
 const mongoose = require('mongoose');
 
-const messageModel = mongoose.Schema({
-    sender: {
+const messageModel = mongoose.Schema(
+    {
+      sender: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User" 
+        ref: 'User',
+      },
+      content: { type: String, trim: true },
+      voiceMessage: { type: Buffer },
+      pictureMessage: {type: Buffer},
+      videoMessage: {type: Buffer},
+      chat: { type: mongoose.Schema.Types.ObjectId, ref: 'Chat' },
+      locationMessage: {
+        latitude: { type: Number },
+        longitude: { type: Number }
+      },
     },
-    content: {type :String, trim: true},
-    chat: { type: mongoose.Schema.Types.ObjectId, ref: "Chat" },
-}, {
-    timestamps: true,
-})
-
-const Message = mongoose.model("Message", messageModel);
-
-module.exports = Message;
+    {
+      timestamps: true,
+    }
+  );
+  
+  const Message = mongoose.model('Message', messageModel);
+  
+  module.exports = Message;
